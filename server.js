@@ -20,5 +20,5 @@ require('./util/cron');
 app.use(routes);
 
 app.listen(process.env.PORT, () => {
-    console.log(`Server running at ${process.env.HOST}:${process.env.PORT}`);
+    console.log(`Server running at ${process.env.HOST_URL}`);
 });
