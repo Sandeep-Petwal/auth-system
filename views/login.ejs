@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="/style.css" />
+    <script src="https://www.google.com/recaptcha/api.js"></script>
+  </head>
+
+
+  <body>
+    <div class="container">
+      <h1 id="heading">Login</h1>
+      <form
+        action="/login"
+        method="POST"
+        id="loginForm"
+        onsubmit="return validateForm(event)"
+      >
+        <input
+          type="email"
+          name="email"
+          placeholder="Username or Email"
+          required
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          required
+        />
+        <div
+          class="g-recaptcha"
+          data-theme="dark"
+          data-sitekey="6LcNRqEqAAAAALsTJbQc3uUDK9iGLABkN_4ZkGgM"
+        ></div>
+        <button type="submit">Login</button>
+      </form>
+
+      <p id="error" class="error"><%= error %></p>
+      <p style="color: green; font-weight: bold; font-size: 1.2em;"><%= typeof success !== 'undefined' && success ? success : '' %></p>
+
+
+      <p>Don't have an account? <a href="/register">Register</a></p>
+    </div>
+
+    <script
+      src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit"
+      async
+      defer
+    ></script>
+
+    <script>
+      function validateForm(event) {
+        event.preventDefault();
+        const response = grecaptcha.getResponse();
+
+        if (!response) {
+          alert("Please complete the reCAPTCHA");
+          return false;
+        }
+
+        document.getElementById("loginForm").submit();
+        return true;
+      }
+
+      function displayErrorFromQuery() {
+        const params = new URLSearchParams(window.location.search);
+        const error = params.get("error");
+        const message = params.get("message");
+
+        if (error) {
+          const errorElement = document.getElementById("error");
+          errorElement.textContent = decodeURIComponent(error);
+          console.log("Error : " + decodeURIComponent(error));
+        }
+      }
+
+      var onloadCallback = function () {
+        console.log("grecaptcha is ready!");
+      };
+
+      displayErrorFromQuery();
+    </script>
+  </body>
+</html>

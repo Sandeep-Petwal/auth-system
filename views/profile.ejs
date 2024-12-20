@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/js/all.min.js"></script>
+    <link rel="stylesheet" href="/profile.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+    </style>
+</head>
+
+<body>
+    <div class="navbar">
+        <span class="navbar-icon"><%= user.username.charAt(0).toUpperCase() %></span>
+        <button class="logout-btn">
+            <a href="/logout">Logout</a>
+        </button>
+    </div>
+    <div class="card">
+        <i class="fas fa-user-circle profile-icon"></i>
+        <h1><%= user.username %></h1>
+        <div class="info-item">
+            <i class="fas fa-envelope"></i>
+            <p><%= user.email %></p>
+        </div>
+        <div class="info-item">
+            <i class="fas fa-calendar-alt"></i>
+            <p>Joined <%= user.created_at.toLocaleString('default', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) %></p>
+        </div>
+        <button class="edit-button" onclick="toggleEdit()">
+            <i class="fas fa-edit"></i> Edit Profile
+        </button>
+        <div id="form-container" class="form-container">
+            <form action="/update" method="post">
+                <div class="form-group">
+                    <label for="username"><i class="fas fa-user"></i> Username</label>
+                    <input type="text" id="username" name="username" value="<%= user.username %>">
+                </div>
+                <div class="form-group">
+                    <label for="email"><i class="fas fa-envelope"></i> Email</label>
+                    <input type="email" id="email" name="email" value="<%= user.email %>">
+                </div>
+                <button type="submit" class="edit-button">
+                    <i class="fas fa-save"></i> Save Changes
+                </button>
+            </form>
+        </div>
+    </div>
+    <div class="footer">
+        <div class="social-links">
+            <a href="https://github.com/Sandeep-Petwal" target="_blank">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.linkedin.com/in/sandeep-petwal/" target="_blank">
+                <i class="fab fa-linkedin"></i>
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const formContainer = document.getElementById('form-container');
+        formContainer.style.display = "none";
+        
+        function toggleEdit() {
+            formContainer.style.display = formContainer.style.display === 'none' ? 'block' : 'none';
+            const editButton = document.querySelector('.edit-button');
+            editButton.innerHTML = formContainer.style.display === 'none' ? 
+                '<i class="fas fa-edit"></i> Edit Profile' : 
+                '<i class="fas fa-times"></i> Cancel';
+        }
+    </script>
+</body>
+
+</html>
