@@ -4,7 +4,8 @@ const axios = require('axios');
 const pingServer = async () => {
     cron.schedule('*/14  * * * *', async () => {
         try {
-            const response = await axios.get(`${process.env.HOST}:${process.env.PORT}`);
+            const url = `${process.env.HOST}:${process.env.PORT}`;
+            const response = await axios.get(url);
             if (response.status === 200) {
                 console.log('Home route pinged successfully.');
             } else {
