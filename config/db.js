@@ -7,6 +7,7 @@ const pool = new Pool({
     ssl: {
         rejectUnauthorized: false,
     },
+    idleTimeoutMillis: 600000, // 10 minutes
 });
 
 pool.connect()
