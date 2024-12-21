@@ -2,7 +2,7 @@ const cron = require('node-cron');
 const axios = require('axios');
 
 const pingServer = async () => {
-    cron.schedule('*/14  * * * *', async () => {
+    cron.schedule('*/4  * * * *', async () => {
         try {
             const HOST_URL = HOST_URL;
             const response = await axios.get(HOST_URL);
