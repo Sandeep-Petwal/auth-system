@@ -15,18 +15,16 @@ const pingServer = async () => {
                 console.error('Failed to ping home route.');
             }
 
-            // ping postgres database
-            setInterval(async () => {
-                try {
-                    await pool.query('SELECT 1');
-                    console.log('Database pinged successfully.');
-                } catch (err) {
-                    console.error('Keep-alive query failed', err);
-                }
-            }, 60000);
+            try {
+                await pool.query('SELECT 1');
+                console.log('Database pinged successfully.');
+            } catch (err) {
+                console.error('Database, Keep-alive query failed \n', err);
+            }
 
         } catch (error) {
-            console.error('Error pinging home route:', error);
+            console.error('Error pinging home route:\n', error);
+
         }
     });
 };
