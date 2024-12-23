@@ -3,7 +3,7 @@ const axios = require('axios');
 const pool = require('../config/db.js');
 
 const pingServer = async () => {
-    cron.schedule('*/4 * * * *', async () => {
+    cron.schedule('*/10 * * * *', async () => {
         try {
 
             // ping home route
@@ -24,8 +24,6 @@ const pingServer = async () => {
                     console.error('Keep-alive query failed', err);
                 }
             }, 60000);
-
-
 
         } catch (error) {
             console.error('Error pinging home route:', error);
